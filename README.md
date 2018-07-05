@@ -1,2 +1,0 @@
-# mymarkdown
-firebase + Vue.js
