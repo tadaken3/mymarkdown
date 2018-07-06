@@ -24,7 +24,7 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to My Markdown'
+      msg: 'Travis TEST'
     }
   }
 }
