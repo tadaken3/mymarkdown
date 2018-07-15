@@ -31,14 +31,14 @@ export default {
         selectedIndex: 0
     }
    },
-   created: function(){
-     firebase
+   created: function() {
+    firebase
       .database()
-      .ref('meomos/' + this.user.uid)
+      .ref('memos/' + this.user.uid)
       .once('value')
-      .then(result=>{
-        if(result.val()){
-            this.memos = result.val();
+      .then(result => {
+        if (result.val()) {
+          this.memos = result.val();
         }
       })
    },
