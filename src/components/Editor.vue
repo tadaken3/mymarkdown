@@ -1,7 +1,7 @@
 <template>
 <div class="editor">
   <h1>エディター画面</h1>
-  <span>{{ user.displayName }}</span>
+  <span>{{ user.displayName }} さんのメモ一覧</span>
   <button @click="logout"> ログアウト</button>
   <div>
     <div class="memoListWrapper">
@@ -89,18 +89,20 @@ export default {
     box-sizing: border-box;
     text-align: left;
     border-bottom: 1px solid #000;
+    background-color:#555555;
     &:nth-child(even){
-        backgroud-color:#ccc;
+        backgroud-color:#333;
     }
     &[data-selected="true"]{
-        background-color:#ccf;
+        background-color:#333;
     }
     
 }
 
-.momoTitle{
+.memoTitle{
     height: 1.5em;
     margin: 0;
+    color: white;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -125,6 +127,16 @@ export default {
 
 .deleteMemoBtn {
     margin: 10px;
+}
+
+button {
+  border: none;
+  border-radius: 4px;
+  line-height: 24px;
+  padding: 0 8px;
+  background: #0a9b94;
+  color: #fff;
+  cursor: pointer;
 }
 
 </style>
