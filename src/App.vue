@@ -1,45 +1,48 @@
 <template>
-　<div id="app">
-   <div class="loading" v-if="!isLoginChecked">
-      <i class="fa fa-spinner fa-spin fa-lg fa-5x"></i>
+    <div id="app">
+        <div class="loading" v-if="!isLoginChecked">
+        <i class="fa fa-spinner fa-spin fa-lg fa-5x"></i>
+    </div>
+    <GlobalNav :user="userData"></GlobalNav>
+    <Home v-if="!isLogin"></Home>
+    <Editor v-if="isLogin" :user="userData"></Editor>
    </div>
-   <Home v-if="!isLogin"></Home>
-　 <Editor v-if="isLogin" :user="userData"></Editor>
-　</div>
 </template>
 
 <script>
-　import Home from './components/Home.vue';
-　import Editor from './components/Editor.vue';
-　
-　export default {
-    name: 'app',
+import Home from './components/Home.vue';
+import Editor from './components/Editor.vue';
+import GlobalNav from './components/GlobalNav.vue';
+
+export default {
+name: 'app',
     data() {
-　  return {
+    return {
       isLogin: false,
       userData: null,
       isLoginChecked: false,
-　  }
-　 },
-　 mounted: function() {
+    } 
+},
+mounted: function() {
      firebase.auth().onAuthStateChanged(user => {
        console.log(user);
        this.isLoginChecked = true;
-　     if (user) {
+       if (user) {
          this.isLogin = true;
          this.userData = user;
        } else {
          this.isLogin = false;
          this.userData = null;
-　     };
-　   });
-　 },
-　 components: {
-　 'Home': Home,
-　 'Editor': Editor,
-　 },
-　}
-　</script>
+       };
+     });
+   },
+   components: {
+   'Home': Home,
+   'Editor': Editor,
+   'GlobalNav': GlobalNav,
+   },
+  }
+</script>
 
 <style lang="scss" scoped>
 .loading {
