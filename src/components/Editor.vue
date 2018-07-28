@@ -1,20 +1,20 @@
 <template>
-<div class="editor">
-  <h1>エディター画面</h1>
-  <span>{{ user.displayName }} さんのメモ一覧</span>
-  <button @click="logout"> ログアウト</button>
-  <div>
+<div class="editer">
     <div class="memoListWrapper">
-    <div class="memoList" v-for="(memo, index) in memos" @click="selectMemo(index)":data-selected="index==selectedIndex">
-    <p class="memoTitle">{{displayTitle( memo.markdown )}}</p>
-    </div>
-    <button class="addMemoBtn" @click="addMemo">メモの追加</button>
-    <button class="deleteMemoBtn" v-if="memos.length > 1" @click="deleteMemo">メモの削除</button>
-    <button class="saveMemosBtn" @click="saveMemo">メモの保存</button>
+        <div class="memoBtns">
+            <button class="addMemoBtn" @click="addMemo">メモの追加</button>
+            <button class="saveMemosBtn" @click="saveMemo">メモの保存</button>
+            <button class="deleteMemoBtn" v-if="memos.length > 1" @click="deleteMemo">メモの削除</button>
+        </div>
+        <div class="memoList" v-for="(memo, index) in memos" @click="selectMemo(index)":data-selected="index==selectedIndex">
+            <p class="memoTitle">{{displayTitle( memo.markdown )}}</p>
+        </div>
     </div>
     <textarea class="markdown" v-model="memos[selectedIndex].markdown"></textarea>
-    <div class="preview" v-html="preview()"></div>
-  </div>
+    <div class="previewWrapper" ref="preview">
+        <p class="previewTitle">Preview Area</p>
+        <div class="preview markdownHtml" v-html="preview()"></div>
+    </div>
 </div>
 </template>
 
@@ -78,10 +78,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.editer {
+    height: 100%;
+}
+
 .memoListWrapper {
-    width: 19%;
-    float: left;
-    border-top: 1px solid #000;
+    width: 30%;
+    padding-bottom: 20px;
 }
 
 .memoList{
@@ -107,24 +110,13 @@ export default {
     overflow: hidden;
 }
 
-.addMemoBtn{
-    margin-top:20px;
+.MemoBtns{
+    padding: 10px;
+    border-bottom: #ccc 1px solid;
+    :nth-child(n+2) {
+        margin-left: 10px;
+    }
 }
-
-.editorWrapper{
-    display:flex;
-}
-.markdown {
-    float: left;
-    width: 40%;
-    height: 500px;
-}
-.prevew{
-    float: left;
-    width: 40%;
-    text-align: left;
-}
-
 .deleteMemoBtn {
     margin: 10px;
 }
@@ -133,10 +125,44 @@ button {
   border: none;
   border-radius: 4px;
   line-height: 24px;
-  padding: 0 8px;
+  padding: 0.8px;
   background: #0a9b94;
   color: #fff;
   cursor: pointer;
 }
 
+.markdown {
+    border: none;
+    border-right: #ccc 1px solid;
+    border-left: #ccc 1px solid;
+    background-color: #eee;
+    box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 40%;
+    resize: none;
+}
+.previewWrapper{
+    text-align: left;
+    width: 30%;
+}
+
+.previewTitle {
+    color: #888;
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: #ddd 1px dotted;
+}
+
+.preview {
+    padding: 10px;
+}
+
+.memoListWrapper,
+.markdown,
+.previewWrapper {
+    overflow: scroll;
+    float: left;
+    height: 100%;
+    box-sizing: border-box;
+}
 </style>
